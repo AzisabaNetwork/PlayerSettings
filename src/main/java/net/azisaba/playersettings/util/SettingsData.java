@@ -72,6 +72,11 @@ public class SettingsData {
 		return conf.getItemStack(key, null);
 	}
 
+	public boolean isSet(@NonNull String key) {
+		errorIfNotCorrectKey(key);
+		return conf.isSet(key);
+	}
+
 	public void set(@NonNull String key, Object obj) {
 		errorIfNotCorrectKey(key);
 		conf.set(key, obj);
