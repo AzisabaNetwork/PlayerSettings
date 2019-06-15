@@ -27,6 +27,9 @@ public class PlayerSettings extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+
+		manager.saveAll();
+
 		Bukkit.getLogger().info(getName() + " disabled.");
 	}
 }

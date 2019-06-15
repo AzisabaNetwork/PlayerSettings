@@ -47,6 +47,10 @@ public class SettingsManager {
 		dataMap.remove(uuid);
 	}
 
+	public void saveAll() {
+		dataMap.values().forEach(data -> data.save());
+	}
+
 	public SettingsData getSettingsData(@NonNull Player player) {
 		return getSettingsData(player.getUniqueId());
 	}
