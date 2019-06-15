@@ -1,0 +1,6 @@
+name: ${project.name}
+main: net.azisaba.playersettings.PlayerSettings
+version: ${project.version}
+authors: ["siloneco", "YukiLeafX"]
+description: ${project.description}
+website: ${project.url}
