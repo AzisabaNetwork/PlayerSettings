@@ -5,7 +5,7 @@
 
 	<groupId>net.azisaba</groupId>
 	<artifactId>PlayerSettings</artifactId>
-	<version>0.0.1-BETA</version>
+	<version>1.0.0</version>
 
 	<name>${project.artifactId}</name>
 	<description>A plugin that manage player settings</description>
