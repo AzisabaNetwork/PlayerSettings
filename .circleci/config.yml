@@ -1,7 +1,7 @@
 version: 2.1
 
 executors:
-  maven:
+  jdk8:
     docker:
       - image: circleci/openjdk:8
     working_directory: ~/work
@@ -10,14 +10,14 @@ executors:
 
 jobs:
   run:
-    executor: maven
+    executor: jdk8
     steps:
       - checkout
       - run: mvn package -V -B
       - run: mkdir -pv dist && cp -v target/*.jar dist
       - store_artifacts: { path: 'dist' }
   deploy:
-    executor: maven
+    executor: jdk8
     steps:
       - checkout
       - add_ssh_keys: { fingerprints: ['da:37:83:1c:a0:b4:5d:de:75:a7:64:c4:25:24:91:9a'] }
