@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run: mvn dependency:go-offline -B
       - save_cache: { key: 'git-v1-{{ .Branch }}-{{ .Revision }}', paths: ['.git'] }
-      - save_cache: { key: 'm2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', paths: ['~/.m2'] }
+      - save_cache: { key: 'm2-v1-{{ .Branch }}-{{ .Revision }}', paths: ['~/.m2'] }
   run:
     executor: maven
     steps:
