@@ -1,14 +1,5 @@
 version: 2
 
-anchors:
-  checkout_mvn: &checkout_mvn
-    - restore_cache: { keys: ['git-v1-{{ .Branch }}-{{ .Revision }}', 'git-v1-{{ .Branch }}', 'git-v1-'] }
-    - checkout
-    - save_cache: { key: 'git-v1-{{ .Branch }}-{{ .Revision }}', paths: ['.git'] }
-    - restore_cache: { keys: ['m2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', 'm2-v1-{{ .Branch }}', 'm2-v1-'] }
-    - run: mvn dependency:go-offline -B
-    - save_cache: { key: 'm2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', paths: ['~/.m2'] }
-
 jobs:
   run:
     docker:
@@ -17,7 +8,12 @@ jobs:
     environment:
       TZ: Asia/Tokyo
     steps:
-      - <<: *checkout_mvn
+      - restore_cache: { keys: ['git-v1-{{ .Branch }}-{{ .Revision }}', 'git-v1-{{ .Branch }}', 'git-v1-'] }
+      - checkout
+      - save_cache: { key: 'git-v1-{{ .Branch }}-{{ .Revision }}', paths: ['.git'] }
+      - restore_cache: { keys: ['m2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', 'm2-v1-{{ .Branch }}', 'm2-v1-'] }
+      - run: mvn dependency:go-offline -B
+      - save_cache: { key: 'm2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', paths: ['~/.m2'] }
       - run: mvn package -V -B
       - run: mkdir -pv dist && cp -v target/*.jar dist
       - store_artifacts: { path: 'dist' }
@@ -28,7 +24,12 @@ jobs:
     environment:
       TZ: Asia/Tokyo
     steps:
-      - <<: *checkout_mvn
+      - restore_cache: { keys: ['git-v1-{{ .Branch }}-{{ .Revision }}', 'git-v1-{{ .Branch }}', 'git-v1-'] }
+      - checkout
+      - save_cache: { key: 'git-v1-{{ .Branch }}-{{ .Revision }}', paths: ['.git'] }
+      - restore_cache: { keys: ['m2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', 'm2-v1-{{ .Branch }}', 'm2-v1-'] }
+      - run: mvn dependency:go-offline -B
+      - save_cache: { key: 'm2-v1-{{ .Branch }}-{{ checksum "pom.xml" }}', paths: ['~/.m2'] }
       - add_ssh_keys: { fingerprints: ['da:37:83:1c:a0:b4:5d:de:75:a7:64:c4:25:24:91:9a'] }
       - run: git clone git@github.com:AzisabaNetwork/mvn-repo.git
       - run: mvn deploy -DaltDeploymentRepository=local::default::file://mvn-repo -V -B
