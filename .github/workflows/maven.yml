@@ -11,6 +11,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           java-version: "8"
+          distribution: "adopt"
       - run: java -version
       - run: mvn --version
       - uses: actions/cache@v1
