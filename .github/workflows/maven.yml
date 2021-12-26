@@ -13,7 +13,7 @@ jobs:
           java-version: "8"
       - run: java -version
       - run: mvn --version
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-build-${{ hashFiles('**/pom.xml') }}
